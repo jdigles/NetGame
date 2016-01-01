@@ -1,6 +1,8 @@
 -- CLIENT
 
 local Net = require("../Net")
+local CM = require("connectionMenu")
+local selectedField
 local info = {
 	playerName = "Testy263",
 	class = "rogue"
@@ -25,8 +27,16 @@ function love.update(dt)
 	
 end
 
-function love.draw()
+function love.textinput(t)
+	CM:textinput(t)
+end
 
+function love.keypressed(k)
+	CM:keypressed(k)
+end
+
+function love.draw()
+	CM:draw()
 end
 
 --------------------- Net Commands -----------------------
