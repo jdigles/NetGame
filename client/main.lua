@@ -1,7 +1,7 @@
 -- CLIENT
 
 local Net = require("../Net")
-local CM = require("connectionMenu")
+local CM = require("Menu")
 local selectedField
 local info = {
 	playerName = "Testy263",
@@ -17,6 +17,7 @@ function love.load()
 	serverIP = "127.0.0.1"
 	port = 4444
 	Net:init("Client")
+	CM:enable()
 	Net:connect(serverIP, port)
 	Net:send({}, "print", "Testing connection")
 	netSendClientInfo()
