@@ -9,7 +9,9 @@ Menu.fields.playerName = {val = "Name", x = 0, y = 0, des = "Your Name", editabl
 Menu.fields.ip = {val = "IP", x = 0, y = textHeight * 1, des = "Server IP address", editable = true}
 Menu.fields.port = {val = "Port", x = 0, y = textHeight * 2, des = "Server port", editable = true}
 Menu.fields.doneButton = {val = "", x = 0, y = textHeight * 4, des = "Done", editable = false}
-Menu.fields.doneButton.action = function() love.event.push("connect") end
+Menu.fields.doneButton.action = function()
+	connect()
+end
 
 Menu.enabled = true
 
@@ -31,6 +33,7 @@ end
 
 function Menu:keypressed(key)
 	if(Menu.enabled) then
+		
 		if(key == "backspace") then
 			local byteoffset = utf8.offset(Menu.selectedField.val, -1)
 			if byteoffset then
@@ -40,8 +43,10 @@ function Menu:keypressed(key)
 		if(key == "tab") then
 			Menu.selectedField = getNextField(Menu.selectedField)
 		end
-		if(key == "enter") then
-			if(Menu.selectedField.action) then Menu.selectedField.action() end
+		if(key == "return") then
+			if not(Menu.selectedField.action == nil) then
+				Menu.selectedField.action()
+			end
 		end
 	end
 end

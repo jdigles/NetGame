@@ -14,18 +14,24 @@ function love.load()
 	Net:registerCMD("StateUpdate", netStateUpdate)
 	Net:registerCMD("MapUpdate", netMapUpdate)
 	
-	serverIP = "127.0.0.1"
-	port = 4444
 	Net:init("Client")
 	CM:enable()
-	Net:connect(serverIP, port)
-	Net:send({}, "print", "Testing connection")
-	netSendClientInfo()
+end
+
+function connect()
+	if(CM.enabled) then 
+		-- Connect using the connection menu
+		Net:connect(CM:getVal("ip"), CM:getVal("port"))
+		info.playerName = CM:getVal("playerName")
+		netSendClientInfo()
+		
+		-- Stop using the menu
+		CM:disable()
+	end
 end
 
 function love.update(dt)
-	Net:update(dt)
-	
+	if(Net.connected) then Net:update(dt) end
 end
 
 function love.textinput(t)
