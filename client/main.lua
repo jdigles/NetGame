@@ -1,7 +1,8 @@
 -- CLIENT
 
 local Net = require("../Net")
-local CM = require("Menu")
+local Menu = require("Menu")
+local CM = Menu:new({x = 50, y = 50, height  = 200, width = 200})
 local selectedField
 local info = {
 	playerName = "Testy263",
@@ -13,6 +14,10 @@ function love.load()
 	Net:registerCMD("ServerInfo", netServerInfo)
 	Net:registerCMD("StateUpdate", netStateUpdate)
 	Net:registerCMD("MapUpdate", netMapUpdate)
+	CM:addField("playerName", {val = "", des = "Your Name", editable = true})
+	CM:addField("ip", {val = "", des = "Server IP Address", editable = true})
+	CM:addField("port", {val = "", des = "Server Port", editable = true})
+	CM:addField("doneButton", {val = "", des = "Done", editable = false, action = connect})
 	
 	Net:init("Client")
 	CM:enable()
